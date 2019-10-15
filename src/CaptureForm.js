@@ -8,8 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function CaptureForm(props) {
 
-  const [open, setOpen] = React.useState(true);
-
   function  bootCamera(){
     var constraints = { audio: false, video: { width: 1280, height: 720 } }; 
     var promise = navigator.mediaDevices.getUserMedia(constraints)
@@ -35,7 +33,7 @@ export default function CaptureForm(props) {
           <DialogContentText>
             {message_}
             </DialogContentText>
-          <video id="myVideo" width="400" height="300" autoplay="1" ></video>
+          <video id="myVideo" width="400" height="300" autoPlay="1" ></video>
         </DialogContent>
         
         <DialogActions>

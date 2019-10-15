@@ -19,7 +19,7 @@ export function readKey(path, ev) {
 
   reader.readAsText(path.target.files[0]);
 }
-
+export var proposalPrices;
 //sending img to GCP and get OCRed data
 function sendImg(base64String) {
   if (keys.url == "") { alert("please input  yr GCP keys; "); return; }
@@ -39,7 +39,8 @@ function sendImg(base64String) {
       var annTxt = JSON.parse(xhreq.responseText);
       console.log(annTxt);
       var ret = annTxt.responses[0].fullTextAnnotation.text;
-      ExtractProductNameAndPrice(ret);
+      var prices = ExtractProductNameAndPrice(ret);
+      proposalPrices = ProposePrice(prices);
       alert(JSON.stringify(ret));
       resolve(JSON.parse(xhreq.responseText));
     };
@@ -64,6 +65,21 @@ function ExtractProductNameAndPrice(ocredTxt)
     }
   }
   console.log(prices);
+
+  return prices;
+}
+
+function ProposePrice(prices)
+{
+  prices.forEach(element => {
+    if(element%10==0)
+      element+=10;
+    else
+      element = Math.ceil((element/10)*10);
+
+      console.log(`Propose:${element}`)
+  });
+  return prices;
 }
 //Show OCRed Result in a Dialog
 function showResult(ret) {
