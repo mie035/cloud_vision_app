@@ -5,7 +5,6 @@ let keys = {
   "url": ""
 }
 let img;
-
 //retrieve GCP keys from json file
 //necessary to use GCP
 export function readKey(path, ev) {
@@ -41,8 +40,7 @@ function sendImg(base64String) {
       var ret = annTxt.responses[0].fullTextAnnotation.text;
       var prices = ExtractProductNameAndPrice(ret);
       proposalPrices = ProposePrice(prices);
-      alert(JSON.stringify(ret));
-      resolve(JSON.parse(xhreq.responseText));
+      resolve(prices);
     };
   })
   xhreq.send(JSON.stringify(body));
@@ -90,14 +88,7 @@ function showResult(ret) {
       str = key;
     }
   }
-  //var parser =  new DOMParser(ret);
-  //var dom = parser.parseFromString(ret,'text/xml');
-  //var res = dom.getElementById('responses');
-  //var content = dom.getElementById('textAnnotations');
-  //var contents = dom.getElementById('description');
 
-
-  //alert(JSON.stringify(str));
 }
 
 //reading image file fot OCRing
@@ -117,7 +108,7 @@ function readFile(file) {
 }
 
 //これを呼び出すことでsend/readをuiで指定したイベントで実行できる
-export function btn_clicked(path, ev) {
+export function btn_clicked(ev,path) {
 
   if (img === null) {
     alert(`${img} is not good`)
@@ -125,7 +116,8 @@ export function btn_clicked(path, ev) {
   }
 
   var ret = sendImg(img);
-  ret.then(txt => showResult(txt));
+  
+  return ret;
 }
 
 export function picture_uploaded(file) {

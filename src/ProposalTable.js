@@ -43,44 +43,35 @@ const rows = [
   createRow('Waste Basket', 2, 17.99),
 ];
 
-var mockI = ["a","b","c","d",];
+var mockI = ["a", "b", "c", "d",];
 
 const invoiceSubtotal = subtotal(rows);
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-const ProposeCells = function(props)
-{
-  this.props.proposalPrice.map((i)=>{
-    <TableCell>{i}</TableCell>
-  })
-  for(let i in this.props.proposalPrice)
-             {
-               list.push(<TableCell>{i}</TableCell>);
-             }
-}
-export default function SpanningTable(props) {
+
+function ProposalTable(props) {
   const classes = useStyles();
+    console.log(`ook${props}`);
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Desc</TableCell>
+            <TableCell>Prices</TableCell>
             <TableCell align="right">Item</TableCell>
             <TableCell align="right">Price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableBody>
-            <ProposeCells prop = {this.props}/>
+            {
+              props.proposalPrice.map((ii) => (
+              <TableCell>{ii}</TableCell>
+            ))}
           </TableBody>
           <TableRow>
-            <TableCell>Profits</TableCell>
-            <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -88,4 +79,4 @@ export default function SpanningTable(props) {
   );
 }
 
-export default ProposaForm;
+export default ProposalTable;

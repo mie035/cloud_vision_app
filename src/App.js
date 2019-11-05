@@ -5,7 +5,6 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Input from '@material-ui/core/Input';
-import { proposalPrices } from './Backend/CloudVision';
 import { btn_clicked } from './Backend/CloudVision';
 import { picture_uploaded } from './Backend/CloudVision';
 import { readKey } from './Backend/CloudVision';
@@ -22,8 +21,8 @@ class App extends React.Component {
       isProposalOpen: false,
       proposalPrices_: [],
     };
-  } s
-  path = "C:\Users\Michitoshi\Pictures\sweetsApp\receipt";
+  } 
+  path = "";
   onClick() {
 
   }
@@ -33,26 +32,32 @@ class App extends React.Component {
     else
       this.setState({ isOpen: true });
   }
-  CompleteAnalyzing(ret) {
 
-    if (this.state.isProposalOpen) {
-      proposalPrices_ = ret;
-      this.setState({ isProposalOpen: false });
-    }
-    else
-      this.setState({ isProposalOpen: true });
+  async toggleProposalForm(path)
+  {
+    
+      if (this.state.isProposalOpen) {
+        this.setState({isProposalOpen: false });
+      }
+      else{
+        const ret = await  btn_clicked(path);
+        this.setState({ proposalPrices_:ret });
+        this.setState({ isProposalOpen: true });}
+    
+    console.log("toggletoggle");
+    
   }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img height="300" width="300" src={capture} alt="camera" onClick={this.pictCapture_clicked.bind(this)} />{
             <CaptureForm isOpen={this.state.isOpen} onClick={this.pictCapture_clicked.bind(this)} />}
-          <ProposalForm isProposalOpen={this.state.isProposalOpen}
-            proposalPrice={this.state.proposalPrices_} onClick={this.CompleteAnalyzing.bind(this)} />
+          <ProposalForm isOpen={this.state.isProposalOpen }
+            proposalPrice={this.state.proposalPrices_} onClick={this.toggleProposalForm.bind(this)} />
           <canvas id="canvas"></canvas>
-
-          <Button id='btnInput' color="secondary" variant="contained" onClick={btn_clicked.bind(this, this.path)}>Send</Button>
+          <Button id='btnInput' color="secondary" variant="contained" onClick={this.toggleProposalForm.bind(this,this.path)}>Send</Button>
           <Button id='btnRef' color="secondary" component="label">
             Ref
         <Input

@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import ProposalTable from './ProposalTable'
 
 export default function CaptureForm(props) {
 
@@ -35,7 +36,6 @@ export default function CaptureForm(props) {
             </DialogContentText>
           <video id="myVideo" width="400" height="300" autoPlay="1" ></video>
         </DialogContent>
-        
         <DialogActions>
           <Button onClick={bootCamera} color="primary">Capture</Button>
           <Button onClick={handleClose} color="primary">
